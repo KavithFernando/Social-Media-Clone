@@ -8,6 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from 
 import { Input } from "@/components/ui/input";
 import { SignUpValidation } from "@/lib/validation";
 import Loader from "@/components/shared/Loader";
+import { createUserAccount } from "@/lib/appwrite/api";
 
 
 
@@ -27,10 +28,9 @@ const SignUpForm = () => {
   })
  
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof SignUpValidation>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof SignUpValidation>) {
+    const newUser = createUserAccount(values);
+    console.log(newUser)
   }
 
   return (
@@ -40,7 +40,7 @@ const SignUpForm = () => {
 
         <img src="/assets/images/logo.svg" alt="logo" />
 
-        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
+        <h2 className="h3-bold md:h2-bold pt-2 sm:pt-8">
           Create a New Account
         </h2>
       
